@@ -15,6 +15,15 @@ void insertionSort(std::vector<int>& arr, int left, int right) {
     }
 }
 
+void merge(std::vector<int>& arr, int left, int mid, int right) {
+    int len1 = mid - left + 1, len2 = right - mid;
+    std::vector<int> leftArr(len1), rightArr(len2);
+    for(int i = 0; i < len1; i++)
+        leftArr[i] = arr[left + i];
+    for(int i = 0; i < len2; i++)
+        rightArr[i] = arr[mid + 1 + i];
+}
+
 int main() {
 
 }
