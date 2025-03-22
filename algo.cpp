@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <random>
 
 const int RUN = 32;
 
@@ -60,5 +61,11 @@ bool isSorted(std::vector<int>& arr) {
 }
 
 int main() {
+    int size;
+    std::cout << "Enter the size of an array: ";
+    std::cin >> size;
 
+    std::vector<int> original(size);
+    std::random_device rd;
+    std::mt19937 gen(rd());
 }
