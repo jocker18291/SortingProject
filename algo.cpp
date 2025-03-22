@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <chrono>
 #include <random>
 
 const int RUN = 32;
@@ -72,4 +73,12 @@ int main() {
     for(int i = 0; i < size; i++) {
         original[i] = dis(gen);
     }
+
+    std::vector<int> arrTim = original;
+
+    auto start = std::chrono::high_resolution_clock::now();
+    timSort(arrTim);
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = end - start;
+    std::cout <<"Timsort: " << elapsed.count() << " s. Correctly sorted? " << (isSorted(arrTim) ? "Yes" : "No") << std::endl;
 }
