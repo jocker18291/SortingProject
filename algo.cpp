@@ -36,6 +36,21 @@ void merge(std::vector<int>& arr, int left, int mid, int right) {
         arr[k++] = rightArr[j++];
 }
 
+void timSort(std::vector<int>& arr) {
+    int n = arr.size();
+    for(int i = 0; i < n; i += RUN)
+        insertionSort(arr, i, std::min(i + RUN - 1, n - 1));
+
+    for(int size = RUN; size < n; size *= 2){
+        for(int left = 0; left < n; left += 2 * size) {
+            int mid = std::min(left + size - 1, n - 1);
+            int right = std::min(left + 2 * size - 1, n - 1);
+            if(mid < right)
+                merge(arr, left, mid, right);
+        }
+    }
+}
+
 int main() {
 
 }
