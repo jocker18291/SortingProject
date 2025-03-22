@@ -22,6 +22,18 @@ void merge(std::vector<int>& arr, int left, int mid, int right) {
         leftArr[i] = arr[left + i];
     for(int i = 0; i < len2; i++)
         rightArr[i] = arr[mid + 1 + i];
+
+    int i = 0, j = 0, k = left;
+    while(i < len1 && j < len2) {
+        if(leftArr[i] <= rightArr[j])
+            arr[k++] = leftArr[i++];
+        else
+            arr[k++] = rightArr[j++];
+    }
+    while(k < len1)
+        arr[k++] = leftArr[i++];
+    while(k < len2)
+        arr[k++] = rightArr[j++];
 }
 
 int main() {
