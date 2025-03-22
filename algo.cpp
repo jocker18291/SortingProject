@@ -30,9 +30,9 @@ void merge(std::vector<int>& arr, int left, int mid, int right) {
         else
             arr[k++] = rightArr[j++];
     }
-    while(k < len1)
+    while(i < len1)
         arr[k++] = leftArr[i++];
-    while(k < len2)
+    while(j < len2)
         arr[k++] = rightArr[j++];
 }
 
