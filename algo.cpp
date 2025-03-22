@@ -51,6 +51,14 @@ void timSort(std::vector<int>& arr) {
     }
 }
 
+bool isSorted(std::vector<int>& arr) {
+    for(size_t i = 1; i < arr.size(); i++) {
+        if(arr[i] < arr[i - 1])
+            return false;
+    }
+    return true;
+}
+
 int main() {
 
 }
