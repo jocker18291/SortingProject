@@ -98,10 +98,19 @@ int main() {
     }
 
     std::vector<int> arrTim = original;
+    std::vector<int> arrDual = original;
 
     auto start = std::chrono::high_resolution_clock::now();
     timSort(arrTim);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
     std::cout <<"Timsort: " << elapsed.count() << " s. Correctly sorted? " << (isSorted(arrTim) ? "Yes" : "No") << std::endl;
+
+    start = std::chrono::high_resolution_clock::now();
+    dualPivotQuickSort(arrDual, 0, arrDual.size() - 1);
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = end - start;
+    std::cout << "Dual-Pivot Quicksort: " << elapsed.count() << " s. Correctly sorted? " << (isSorted(arrDual) ? "Yes" : "No") << std::endl;
+
+    return 0;
 }
