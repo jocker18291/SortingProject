@@ -128,6 +128,12 @@ void introsortUtil(std::vector<int>& arr, int low, int high, int depthLimit) {
     introsortUtil(arr, p + 1, high, depthLimit - 1);
 }
 
+void introSort(std::vector<int>& arr) {
+    int n = arr.size();
+    int depthLimit = 2 * log(n);
+    introsortUtil(arr, 0, n - 1, depthLimit);
+}
+
 bool isSorted(std::vector<int>& arr) {
     for(size_t i = 1; i < arr.size(); i++) {
         if(arr[i] < arr[i - 1])
