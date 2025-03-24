@@ -82,6 +82,19 @@ void dualPivotQuickSort(std::vector<int>& arr, int low, int high) {
     }
 }
 
+int partition(std::vector<int>& arr, int low, int high) {
+    int pivot = arr[high];
+    int i = low;
+    for(int j = low; j < high; j++) {
+        if(arr[j] < pivot) {
+            std::swap(arr[i], arr[j]);
+            i++;
+        }
+    }
+    std::swap(arr[i], arr[high]);
+    return i;
+}
+
 bool isSorted(std::vector<int>& arr) {
     for(size_t i = 1; i < arr.size(); i++) {
         if(arr[i] < arr[i - 1])
