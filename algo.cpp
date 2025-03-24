@@ -53,6 +53,22 @@ void timSort(std::vector<int>& arr) {
     }
 }
 
+void dualPivotQuickSort(std::vector<int>& arr, int low, int high) {
+    if(low < high) {
+        if(arr[low] > arr[high])
+            std::swap(arr[low], arr[high]);
+        int pivot1 = arr[low], pivot2 = arr[high];
+        int i = low + 1, lt = low + 1, gt = high - 1;
+        while(i <= gt) {
+            if(arr[i] < pivot1) {
+                std::swap(arr[i], arr[lt]);
+                lt++;
+                i++;
+            }
+        }
+    }
+}
+
 bool isSorted(std::vector<int>& arr) {
     for(size_t i = 1; i < arr.size(); i++) {
         if(arr[i] < arr[i - 1])
