@@ -73,6 +73,12 @@ void dualPivotQuickSort(std::vector<int>& arr, int low, int high) {
                 i++;
             }
         }
+        lt--; gt++;
+        std::swap(arr[low], arr[lt]);
+        std::swap(arr[high], arr[gt]);
+        dualPivotQuickSort(arr, low, lt - 1);
+        dualPivotQuickSort(arr, lt + 1, gt - 1);
+        dualPivotQuickSort(arr, gt + 1, high);
     }
 }
 
