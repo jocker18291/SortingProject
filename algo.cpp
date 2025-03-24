@@ -65,6 +65,13 @@ void dualPivotQuickSort(std::vector<int>& arr, int low, int high) {
                 lt++;
                 i++;
             }
+            else if(arr[i] > pivot2) {
+                std::swap(arr[i], arr[gt]);
+                gt--;
+            }
+            else {
+                i++;
+            }
         }
     }
 }
