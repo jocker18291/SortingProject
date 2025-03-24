@@ -109,6 +109,25 @@ void heapify(std::vector<int>& arr, int low, int high, int i) {
     }
 }
 
+void heapSort(std::vector<int>& arr, int low, int high) {
+
+}
+
+void introsortUtil(std::vector<int>& arr, int low, int high, int depthLimit) {
+    int size = high - low + 1;
+    if(size < 16) {
+        insertionSort(arr, low, high);
+        return;
+    }
+    if(depthLimit == 0) {
+        heapSort(arr, low, high);
+        return;
+    }
+    int p = partition(arr, low, high);
+    introsortUtil(arr, low, p - 1, depthLimit - 1);
+    introsortUtil(arr, p + 1, high, depthLimit - 1);
+}
+
 bool isSorted(std::vector<int>& arr) {
     for(size_t i = 1; i < arr.size(); i++) {
         if(arr[i] < arr[i - 1])
