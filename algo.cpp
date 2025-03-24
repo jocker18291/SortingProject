@@ -95,6 +95,20 @@ int partition(std::vector<int>& arr, int low, int high) {
     return i;
 }
 
+void heapify(std::vector<int>& arr, int low, int high, int i) {
+    int largest = i;
+    int left = 2 * (i - low) + 1 + low;
+    int right = 2 * (i - low) + 2 + low;
+    if (left <= high && arr[left] > arr[largest])
+        largest = left;
+    if(right <= high && arr[right] > arr[largest])
+        largest = right;
+    if(largest != i) {
+        std::swap(arr[i], arr[largest]);
+        heapify(arr, low, high, largest);
+    }
+}
+
 bool isSorted(std::vector<int>& arr) {
     for(size_t i = 1; i < arr.size(); i++) {
         if(arr[i] < arr[i - 1])
