@@ -110,7 +110,13 @@ void heapify(std::vector<int>& arr, int low, int high, int i) {
 }
 
 void heapSort(std::vector<int>& arr, int low, int high) {
-
+    int n = high - low + 1;
+    for(int i = low + n / 2 - 1; i >= low; i--)
+        heapify(arr, low, high, i);
+    for(int i = high; i > low; i--) {
+        std::swap(arr[low], arr[i]);
+        heapify(arr, low, i - 1, low);
+    }
 }
 
 void introsortUtil(std::vector<int>& arr, int low, int high, int depthLimit) {
@@ -157,6 +163,7 @@ int main() {
 
     std::vector<int> arrTim = original;
     std::vector<int> arrDual = original;
+    std::vector<int> arrIntro = original;
 
     auto start = std::chrono::high_resolution_clock::now();
     timSort(arrTim);
@@ -169,6 +176,12 @@ int main() {
     end = std::chrono::high_resolution_clock::now();
     elapsed = end - start;
     std::cout << "Dual-Pivot Quicksort: " << elapsed.count() << " s. Correctly sorted? " << (isSorted(arrDual) ? "Yes" : "No") << std::endl;
+
+    start = std::chrono::high_resolution_clock::now();
+    introSort(arrIntro);
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = end - start;
+    std::cout << "Introspective Sort: " << elapsed.count() << " s. Correctly sorted? " << (isSorted(arrIntro) ? "Yes" : "No") << std::endl;
 
     return 0;
 }
