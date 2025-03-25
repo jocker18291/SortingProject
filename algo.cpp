@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <cmath>
+#include "algo.hpp"
 
 const int RUN = 32;
 

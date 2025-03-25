@@ -14,4 +14,4 @@ void introsortUtil(std::vector<int>& arr, int low, int high, int depthLimit);
 void introSort(std::vector<int>& arr);
 bool isSorted(std::vector<int>& arr);
 
-#endif ALGO_HPP
+#endif
