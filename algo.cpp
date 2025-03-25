@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <algorithm>
 #include "algo.hpp"
 
 const int RUN = 32;
@@ -146,4 +147,15 @@ bool isSorted(std::vector<int>& arr) {
             return false;
     }
     return true;
+}
+
+void partSort(std::vector<int>& arr, float percent) {
+    int n = static_cast<int>((percent / 100.0) * arr.size());
+
+    if(n > 0 && n <= arr.size()) {
+        std::sort(arr.begin(), arr.begin() + n);
+    }
+    else {
+        std::cout << "Not valid percentage." << std::endl;
+    }
 }
