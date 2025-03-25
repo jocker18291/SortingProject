@@ -13,5 +13,6 @@ void heapSort(std::vector<int>& arr, int low, int high);
 void introsortUtil(std::vector<int>& arr, int low, int high, int depthLimit);
 void introSort(std::vector<int>& arr);
 bool isSorted(std::vector<int>& arr);
+void partSort(std::vector<int>& arr, float percent);
 
 #endif
