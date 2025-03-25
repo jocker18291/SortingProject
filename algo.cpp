@@ -159,3 +159,7 @@ void partSort(std::vector<int>& arr, float percent) {
         std::cout << "Not valid percentage." << std::endl;
     }
 }
+
+void convert(std::vector<int>& arr) {
+    std::sort(arr.begin(), arr.end(), std::greater<int>());
+}
