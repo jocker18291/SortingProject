@@ -70,5 +70,33 @@ int main() {
     elapsed = end - start;
     std::cout << "Introspective Sort at " << percent << "%: " << elapsed.count() << " s. Correctly sorted? " << (isSorted(arrTimPart) ? "Yes" : "No") << std::endl;
 
+    std::vector<int> arrTimGt = original;
+    std::vector<int> arrDualGt = original;
+    std::vector<int> arrIntroGt = original;
+
+    convert(arrTimGt);
+    convert(arrDualGt);
+    convert(arrIntroGt);
+
+    std::cout << std::endl;
+
+    start = std::chrono::high_resolution_clock::now();
+    timSort(arrTimGt);
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = end - start;
+    std::cout << "Timsort: " << elapsed.count() << " s. Correctly sorted? " << (isSorted(arrTimGt) ? "Yes" : "No") << std::endl;
+
+    start = std::chrono::high_resolution_clock::now();
+    timSort(arrDualGt);
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = end - start;
+    std::cout << "Dual-Pivot Quicksort: " << elapsed.count() << " s. Correctly sorted? " << (isSorted(arrDualGt) ? "Yes" : "No") << std::endl;
+
+    start = std::chrono::high_resolution_clock::now();
+    timSort(arrIntroGt);
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = end - start;
+    std::cout << "Introspective Sort: " << elapsed.count() << " s. Correctly sorted? " << (isSorted(arrIntroGt) ? "Yes" : "No") << std::endl;
+
     return 0;
 }
