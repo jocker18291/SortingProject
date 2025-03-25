@@ -6,8 +6,11 @@
 
 int main() {
     int size;
+    float percent;
     std::cout << "Enter the size of an array: ";
     std::cin >> size;
+    std::cout << "Enter the percentage: ";
+    std::cin >> percent;
 
     std::vector<int> original(size);
     std::random_device rd;
@@ -38,6 +41,34 @@ int main() {
     end = std::chrono::high_resolution_clock::now();
     elapsed = end - start;
     std::cout << "Introspective Sort: " << elapsed.count() << " s. Correctly sorted? " << (isSorted(arrIntro) ? "Yes" : "No") << std::endl;
+
+    std::vector<int> arrTimPart = original;
+    std::vector<int> arrDualPart = original;
+    std::vector<int> arrIntroPart = original;
+
+    partSort(arrTimPart, percent);
+    partSort(arrDualPart, percent);
+    partSort(arrIntroPart, percent);
+
+    std::cout << std::endl;
+
+    start = std::chrono::high_resolution_clock::now();
+    timSort(arrTimPart);
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = end - start;
+    std::cout << "Timsort at " << percent << "%: " << elapsed.count() << " s. Correctly sorted? " << (isSorted(arrTimPart) ? "Yes" : "No") << std::endl;
+
+    start = std::chrono::high_resolution_clock::now();
+    dualPivotQuickSort(arrDualPart, 0, arrDualPart.size() - 1);
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = end - start;
+    std::cout << "Dual-Pivot Quicksort at " << percent << "%: " << elapsed.count() << " s. Correctly sorted? " << (isSorted(arrTimPart) ? "Yes" : "No") << std::endl;
+
+    start = std::chrono::high_resolution_clock::now();
+    introSort(arrIntroPart);
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = end - start;
+    std::cout << "Introspective Sort at " << percent << "%: " << elapsed.count() << " s. Correctly sorted? " << (isSorted(arrTimPart) ? "Yes" : "No") << std::endl;
 
     return 0;
 }
