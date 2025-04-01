@@ -2,9 +2,13 @@
 #include <vector>
 #include <cmath>
 #include <algorithm>
+#include <random>
+#include <chrono>
 #include "algo.hpp"
 
+
 const int RUN = 32;
+
 
 void insertionSort(std::vector<int>& arr, int left, int right) {
     for(int i = left + 1; i <= right; i++) {
@@ -18,6 +22,7 @@ void insertionSort(std::vector<int>& arr, int left, int right) {
     }
 }
 
+
 void merge(std::vector<int>& arr, int left, int mid, int right) {
     int len1 = mid - left + 1, len2 = right - mid;
     std::vector<int> leftArr(len1), rightArr(len2);
@@ -25,6 +30,7 @@ void merge(std::vector<int>& arr, int left, int mid, int right) {
         leftArr[i] = arr[left + i];
     for(int i = 0; i < len2; i++)
         rightArr[i] = arr[mid + 1 + i];
+
 
     int i = 0, j = 0, k = left;
     while(i < len1 && j < len2) {
@@ -39,10 +45,12 @@ void merge(std::vector<int>& arr, int left, int mid, int right) {
         arr[k++] = rightArr[j++];
 }
 
+
 void timSort(std::vector<int>& arr) {
     int n = arr.size();
     for(int i = 0; i < n; i += RUN)
         insertionSort(arr, i, std::min(i + RUN - 1, n - 1));
+
 
     for(int size = RUN; size < n; size *= 2){
         for(int left = 0; left < n; left += 2 * size) {
@@ -53,6 +61,7 @@ void timSort(std::vector<int>& arr) {
         }
     }
 }
+
 
 void dualPivotQuickSort(std::vector<int>& arr, int low, int high) {
     if(low < high) {
@@ -83,6 +92,7 @@ void dualPivotQuickSort(std::vector<int>& arr, int low, int high) {
     }
 }
 
+
 int partition(std::vector<int>& arr, int low, int high) {
     int pivot = arr[high];
     int i = low;
@@ -95,6 +105,7 @@ int partition(std::vector<int>& arr, int low, int high) {
     std::swap(arr[i], arr[high]);
     return i;
 }
+
 
 void heapify(std::vector<int>& arr, int low, int high, int i) {
     int largest = i;
@@ -110,6 +121,7 @@ void heapify(std::vector<int>& arr, int low, int high, int i) {
     }
 }
 
+
 void heapSort(std::vector<int>& arr, int low, int high) {
     int n = high - low + 1;
     for(int i = low + n / 2 - 1; i >= low; i--)
@@ -119,6 +131,7 @@ void heapSort(std::vector<int>& arr, int low, int high) {
         heapify(arr, low, i - 1, low);
     }
 }
+
 
 void introsortUtil(std::vector<int>& arr, int low, int high, int depthLimit) {
     int size = high - low + 1;
@@ -135,11 +148,13 @@ void introsortUtil(std::vector<int>& arr, int low, int high, int depthLimit) {
     introsortUtil(arr, p + 1, high, depthLimit - 1);
 }
 
+
 void introSort(std::vector<int>& arr) {
     int n = arr.size();
     int depthLimit = 2 * log(n);
     introsortUtil(arr, 0, n - 1, depthLimit);
 }
+
 
 bool isSorted(std::vector<int>& arr) {
     for(size_t i = 1; i < arr.size(); i++) {
@@ -149,8 +164,10 @@ bool isSorted(std::vector<int>& arr) {
     return true;
 }
 
+
 void partSort(std::vector<int>& arr, float percent) {
     int n = static_cast<int>((percent / 100.0) * arr.size());
+
 
     if(n > 0 && n <= arr.size()) {
         std::sort(arr.begin(), arr.begin() + n);
@@ -160,6 +177,79 @@ void partSort(std::vector<int>& arr, float percent) {
     }
 }
 
+
 void convert(std::vector<int>& arr) {
     std::sort(arr.begin(), arr.end(), std::greater<int>());
 }
+
+
+double calculateAverage(const std::vector<double>& times) {
+    double sum = 0;
+    for(double time : times) {
+        sum += time;
+    }
+    return sum / times.size();
+}
+
+
+template <typename Func>
+double measureTime(Func&& func, std::vector<int>& arr) {
+    auto start = std::chrono::high_resolution_clock::now();
+    func(arr);
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration = end - start;
+    return duration.count();
+}
+
+
+
+
+std::vector<int> generateRandom(int size) {
+    std::vector<int> original(size);
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, 100000);
+    for(int i = 0; i < size; i++) {
+        original[i] = dis(gen);
+    }
+    return original;
+}
+
+
+void measure(void (*sortFunc)(std::vector<int>&), int size) {
+    std::vector<double> times;
+    for(int i = 0; i < 100; i++) {
+        std::vector<int> arr = generateRandom(size);
+        partSort(arr, 100);
+        times.push_back(measureTime(sortFunc, arr));
+    }
+
+
+    double average = calculateAverage(times);
+    std::cout << "Average time: " << average << " s." << std::endl;
+}
+
+
+template <typename Func>
+double measurePivotTime(Func&& func, std::vector<int>& arr) {
+    auto start = std::chrono::high_resolution_clock::now();
+    func(arr, 0, arr.size() - 1);
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration = end - start;
+    return duration.count();
+}
+
+
+void measurePivot(void (*sortFunc)(std::vector<int>&, int low, int high), int size) {
+    std::vector<double> times;
+    for(int i = 0; i < 100; i++) {
+        std::vector<int> arr = generateRandom(size);
+        partSort(arr, 100);
+        times.push_back(measurePivotTime(sortFunc, arr));
+    }
+
+
+    double average = calculateAverage(times);
+    std::cout << "Average time: " << average << " s." << std::endl;
+}
+

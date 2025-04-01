@@ -1,7 +1,9 @@
 #ifndef ALGO_HPP
 #define ALGO_HPP
 
+
 #include <vector>
+
 
 void insertionSort(std::vector<int>& arr, int left, int right);
 void merge(std::vector<int>& arr, int left, int mid, int right);
@@ -15,5 +17,11 @@ void introSort(std::vector<int>& arr);
 bool isSorted(std::vector<int>& arr);
 void partSort(std::vector<int>& arr, float percent);
 void convert(std::vector<int>& arr);
+double calculateAverage(const std::vector<int>& arr);
+std::vector<int> generateRandom(int size);
+void measure(void (*sortFunc)(std::vector<int>&), int size);
+void measurePivot(void (*sortFunc)(std::vector<int>&, int low, int high), int size);
+
 
 #endif
+
