@@ -2,7 +2,7 @@
 #include <vector>
 #include <chrono>
 #include <random>
-#include "algo.hpp"
+#include "../include/algo.hpp"
 
 
 int main() {

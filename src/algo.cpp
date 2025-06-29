@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <random>
 #include <chrono>
-#include "algo.hpp"
+#include "../include/algo.hpp"
 
 
 const int RUN = 32;
